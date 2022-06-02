@@ -14,8 +14,10 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <!--  5. Other JS documents  -->
-    <script type="text/javascript" src="js/test_js.js"></script>
     <script type="text/javascript" src="js/file_info.js"></script>
+    <script type="text/javascript" src="js/keyword_search.js"></script>
+<!--    <script type="text/javascript" src="js/createRows.js"></script>-->
+    <script type="text/css" src="css/text_area.css"></script>
 
 </head>
 <body>
@@ -46,14 +48,27 @@
     <p id="p_query_results"></p>
     <br>
     <br>
-    <tr>
-        <td>Select a txt file:</td>
-        <br>
-        <td><input type="file" id="input_file" onchange="file_info()"></td>
-    </tr>
+    <p>Select a txt file:<input type="file" id="input_file" onchange="file_info()"></p>
+    <br>
+
+    <form name="keyword_searching">
+        <p>Keyword search</p>
+        <input type="text" id="keyword">
+        <input type="button" id="search" value="Search" onclick="keywordsearch()">
+    </form>
+    <p id="keyword_test"></p>
+
     <br>
     <br>
-    <textarea id="novel_content" rows="50" cols="100"></textarea>
+
+<!--    <div id="main">-->
+<!--        <div id="leftbox">-->
+<!--            <textarea wrap="off" rows="50" cols="2" id="leftNum" disabled></textarea>-->
+<!--        </div>-->
+<!--        <textarea id="novel_content" name="content" onkeydown="keyUp()" onscroll="getId('leftNum').scrollTop = this.scrollTop;" rows="50" cols="100"></textarea>-->
+<!--    </div>-->
+
+    <textarea id="novel_content" name="content" rows="50" cols="100"></textarea>
 
 </body>
 </html>
