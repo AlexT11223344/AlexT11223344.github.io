@@ -4,17 +4,15 @@
 //         document.getElementById("sensitive_value").innerHTML = this.status_value;
 //     }).change();
 // }
-function matchKeyword(keyword,content){
+function matchKeyword(keyword,content) {
     var result = [];
-    var regex = new RegExp('\\b('+keyword+')\\b');
-    for(var i = 0; i < content.length; i++){
+    var result_temp_left = [];
+    var result_temp_right = [];
+    var regex = new RegExp('\\b(' + keyword + ')\\b');
+    for (var i = 0; i < content.length; i++) {
         // if (this.arr[i].search(this.keyword) != -1)
-        if (content[i].match(regex) != null)
-        {
+        if (content[i].match(regex) != null) {
             result.push(content[i]);
-        }
-        else {
-            continue;
         }
     }
     return result;
@@ -34,15 +32,6 @@ function matchKeywordExact(keyword,content){
         }
     }
     return result;
-}
-
-
-function left_context_change(){
-
-}
-
-function right_context_change(){
-
 }
 
 function keywordsearch(){
