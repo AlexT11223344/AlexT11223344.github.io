@@ -17,6 +17,8 @@
     <script type="text/javascript" src="js/file_info.js"></script>
     <script type="text/javascript" src="js/keyword_search.js"></script>
     <script type="text/javascript" src="js/check_box_status.js"></script>
+    <script type="text/javascript" src="js/left_context.js"></script>
+    <script type="text/javascript" src="js/right_context.js"></script>
 <!--    <script type="text/javascript" src="js/createRows.js"></script>-->
     <script type="text/css" src="css/text_area.css"></script>
 
@@ -54,10 +56,36 @@
         <input type="text" id="keyword">
         <input type="button" id="search" value="Search" onclick="keywordsearch()">
         <input type="checkbox" id="case_sensitive"> Case Sensitive
+        <br>
+        <br>
     </form>
+
+    <p>Left context words
+        <select id="left_context" onchange="left_context_change()">
+            <option value="5" selected="selected">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+        </select>
+    </p>
+
+
+    <p>Right context words
+        <select id="right_context" onchange="right_context_change()">
+            <option value="5" selected="selected">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+        </select>
+    </p>
+
 
     <p id="keyword_test"></p>
     <p id="sensitive_value"></p>
+    <p id="leftContext_value"></p>
+    <p id="rightContext_value"></p>
 
     <br>
     <br>

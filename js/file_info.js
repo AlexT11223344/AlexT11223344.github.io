@@ -30,7 +30,7 @@ function file_info() {
         document.getElementById('novel_content').innerHTML = "Choose a novel from the drop-down list"
     } else {
         var txtFile = new XMLHttpRequest();
-        txtFile.open("GET", data_value, true);
+        txtFile.open("GET", data_value, false);
         txtFile.onreadystatechange = function () {
             if (txtFile.readyState === 4) {  // Makes sure the document is ready to parse.
                 if (txtFile.status === 200) {  // Makes sure it's found the file.
