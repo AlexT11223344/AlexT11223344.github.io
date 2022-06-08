@@ -4,9 +4,45 @@
 //         document.getElementById("sensitive_value").innerHTML = this.status_value;
 //     }).change();
 // }
-function matchExact(r,str){
-    var match = str.match(r);
-    return match && str === match[0];
+function matchKeyword(keyword,content){
+    var result = [];
+    var regex = new RegExp('\\b('+keyword+')\\b');
+    for(var i = 0; i < content.length; i++){
+        // if (this.arr[i].search(this.keyword) != -1)
+        if (content[i].match(regex) != null)
+        {
+            result.push(content[i]);
+        }
+        else {
+            continue;
+        }
+    }
+    return result;
+}
+
+function matchKeywordExact(keyword,content){
+    var result = [];
+    var regex = new RegExp('\\b('+keyword+')\\b','i');
+    for(var i = 0; i < content.length; i++){
+        // if (this.arr[i].search(this.keyword) != -1)
+        if (content[i].match(regex) != null)
+        {
+            result.push(content[i]);
+        }
+        else {
+            continue;
+        }
+    }
+    return result;
+}
+
+
+function left_context_change(){
+
+}
+
+function right_context_change(){
+
 }
 
 function keywordsearch(){
@@ -20,17 +56,8 @@ function keywordsearch(){
 
     if (status_value == true){
         alert(status_value);
-        var regex = new RegExp('\\b('+this.keyword+')\\b');
-        for(var i = 0; i < this.arr.length; i++){
-            // if (this.arr[i].search(this.keyword) != -1)
-            if (this.arr[i].match(regex) != null)
-            {
-                this.result.push(this.arr[i]);
-            }
-            else {
-                continue;
-            }
-        }
+
+        this.result = matchKeyword(this.keyword, this.arr);
         if (this.result == ""){
             document.getElementById("query_results").innerHTML = "No result for the keyword :" + "  " + this.keyword;
             document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : 0" + "</h3>"
@@ -48,17 +75,7 @@ function keywordsearch(){
         // document.getElementById("query_results").innerHTML = "Functions in development...";
         alert(status_value);
 
-        var regex = new RegExp('\\b('+this.keyword+')\\b','i');
-        for(var i = 0; i < this.arr.length; i++){
-            // if (this.arr[i].search(this.keyword) != -1)
-            if (this.arr[i].match(regex) != null)
-            {
-                this.result.push(this.arr[i]);
-            }
-            else {
-                continue;
-            }
-        }
+        this.result = matchKeywordExact(this.keyword, this.arr);
         if (this.result == ""){
             document.getElementById("query_results").innerHTML = "No result for the keyword :" + "  " + this.keyword;
             document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : 0" + "</h3>"
