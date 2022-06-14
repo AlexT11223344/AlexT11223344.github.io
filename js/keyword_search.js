@@ -1,82 +1,222 @@
-// function check_box_status(){
-//     $('#case_sensitive').on('change', function(){
-//         this.status_value = this.checked ? "1" : "0";
-//         document.getElementById("sensitive_value").innerHTML = this.status_value;
-//     }).change();
-// }
-function matchKeyword(keyword,content) {
+function re_remove_punctuation(str){
+    var arr_str = str.replace(/[^\w\s\']|_/g, " ").split(" ");
+    return arr_str;
+}
+function matchKeywordExact(keyword,content,l_length,r_length) {
     var result = [];
     var result_temp_left = [];
     var result_temp_right = [];
     var regex = new RegExp('\\b(' + keyword + ')\\b');
+
+    for (var i = 0; i < content.length; i++) {
+        if (content[i].match(regex) != null) {
+            // result.push(content[i]);
+
+            // Left side logic.
+            if (i - 1 >= 0) {
+
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+
+                if (index + 1 - l_length < 0) {
+                    var arr_content_left = arr_content.slice(0, index);
+                    var arr_content_left_1 = re_remove_punctuation(content[i - 1]);
+                    var x = index + 1 - l_length;
+
+                    arr_content_left_1 = arr_content_left_1.slice(x);
+                    result_temp_left = [...arr_content_left_1, ...arr_content_left];
+                } else {
+                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    result_temp_left = arr_content_left;
+                }
+                // result.push(content[i] + "||||........||||" + result_temp_left);
+            }
+            else {
+
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+                if (index + 1 - l_length < 0) {
+                    var arr_content_left = arr_content.slice(0, index);
+                    result_temp_left = arr_content_left;
+                } else {
+                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    result_temp_left = arr_content_left;
+                }
+                // result.push(content[i] + "||||........||||" + result_temp_left)
+            }
+
+            // Right side logic
+            if (i + 1 > content.length) {
+
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+
+                if (index + r_length > arr_content.length - 1){
+                    var arr_content_right = arr_content.slice(index, arr_content.length);
+                    // var arr_content_right = 'x'
+                    result_temp_right = arr_content_right;
+                }
+
+                else {
+                    var arr_content_right = arr_content.slice(index, index + r_length);
+                    // var arr_content_right = 'x'
+                    result_temp_right = arr_content_right;
+                }
+            }
+            else {
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+
+                if (index + r_length > arr_content.length) {
+                    var arr_content_right = arr_content.slice(index, arr_content.length);
+                    var arr_content_right_1 = re_remove_punctuation(content[i + 1]);
+                    var y = index + 1 + r_length - arr_content.length;
+                    arr_content_right_1 = arr_content_right_1.slice(0, y);
+                    result_temp_right = [...arr_content_right, ...arr_content_right_1];
+                }
+                else {
+                    var arr_content_right = arr_content.slice(index, index + r_length)
+                    result_temp_right = arr_content_right;
+                }
+            }
+            result.push(result_temp_left + "," + result_temp_right);
+            // result.push([...result_temp_left, ...result_temp_right]);
+        }
+    }
+    return result;
+}
+
+
+function matchKeyword(keyword, content, l_length,r_length) {
+    var result = [];
+    var result_temp_left = [];
+    var result_temp_right = [];
+    var regex = new RegExp('\\b(' + keyword + ')\\b', 'i');
     for (var i = 0; i < content.length; i++) {
         // if (this.arr[i].search(this.keyword) != -1)
         if (content[i].match(regex) != null) {
-            result.push(content[i]);
+            // result.push(content[i]);
+
+            // Left side logic.
+            if (i - 1 >= 0) {
+
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+
+                if (index + 1 - l_length < 0) {
+                    var arr_content_left = arr_content.slice(0, index);
+                    var arr_content_left_1 = re_remove_punctuation(content[i - 1]);
+                    var x = index + 1 - l_length;
+
+                    arr_content_left_1 = arr_content_left_1.slice(x);
+                    result_temp_left = [...arr_content_left_1, ...arr_content_left];
+                } else {
+                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    result_temp_left = arr_content_left;
+                }
+                // result.push(content[i] + "||||........||||" + result_temp_left);
+            }
+            else {
+
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+                if (index + 1 - l_length < 0) {
+                    var arr_content_left = arr_content.slice(0, index);
+                    result_temp_left = arr_content_left;
+                } else {
+                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    result_temp_left = arr_content_left;
+                }
+                // result.push(content[i] + "||||........||||" + result_temp_left)
+            }
+
+            // Right side logic
+            if (i + 1 > content.length) {
+
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+
+                if (index + r_length > arr_content.length - 1){
+                    var arr_content_right = arr_content.slice(index, arr_content.length);
+                    // var arr_content_right = 'x'
+                    result_temp_right = arr_content_right;
+                }
+
+                else {
+                    var arr_content_right = arr_content.slice(index, index + r_length);
+                    // var arr_content_right = 'x'
+                    result_temp_right = arr_content_right;
+                }
+            }
+            else {
+                var arr_content = re_remove_punctuation(content[i]);
+                var index = arr_content.indexOf(keyword);
+
+                if (index + r_length > arr_content.length) {
+                    var arr_content_right = arr_content.slice(index, arr_content.length);
+                    var arr_content_right_1 = re_remove_punctuation(content[i + 1]);
+                    var y = index + 1 + r_length - arr_content.length;
+                    arr_content_right_1 = arr_content_right_1.slice(0, y);
+                    result_temp_right = [...arr_content_right, ...arr_content_right_1];
+                }
+                else {
+                    var arr_content_right = arr_content.slice(index, index + r_length)
+                    result_temp_right = arr_content_right;
+                }
+            }
+            result.push(result_temp_left + "," + result_temp_right);
+            // result.push([...result_temp_left, ...result_temp_right]);
         }
     }
     return result;
 }
 
-function matchKeywordExact(keyword,content){
-    var result = [];
-    var regex = new RegExp('\\b('+keyword+')\\b','i');
-    for(var i = 0; i < content.length; i++){
-        // if (this.arr[i].search(this.keyword) != -1)
-        if (content[i].match(regex) != null)
-        {
-            result.push(content[i]);
-        }
-        else {
-            continue;
-        }
-    }
-    return result;
-}
-
-function keywordsearch(){
+function keywordsearch() {
     var status_value = $("input[type='checkbox']").is(':checked')
     this.keyword = $("#keyword").val();
     this.content = $("#novel_content").val();
-    this.arr= this.content.split("\n");
+    this.arr = this.content.split("\n");
     this.result = [];
     var finalResult = "";
     document.getElementById("keyword_test").innerHTML = "Selected keyword is: " + this.keyword;
+    var l_length_str = document.getElementById("left_context");
+    var l_length_int = parseInt(l_length_str.value);
 
-    if (status_value == true){
+    var r_length_str = document.getElementById("right_context");
+    var r_length_int = parseInt(r_length_str.value);
+
+    if (status_value == true) {
         alert(status_value);
 
-        this.result = matchKeyword(this.keyword, this.arr);
-        if (this.result == ""){
+        this.result = matchKeywordExact(this.keyword, this.arr, l_length_int, r_length_int);
+        if (this.result == "") {
             document.getElementById("query_results").innerHTML = "No result for the keyword :" + "  " + this.keyword;
             document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : 0" + "</h3>"
-        }
-        else {
-            for (var j = 0; j < this.result.length; j++){
+        } else {
+            for (var j = 0; j < this.result.length; j++) {
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
                 finalResult += "<div>" + this.result[j] + "</div>";
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
-                document.getElementById("query_results").innerHTML= finalResult;
+                document.getElementById("query_results").innerHTML = finalResult;
             }
         }
-    }
-    else {
+    } else {
         // document.getElementById("query_results").innerHTML = "Functions in development...";
         alert(status_value);
 
-        this.result = matchKeywordExact(this.keyword, this.arr);
-        if (this.result == ""){
+        this.result = matchKeyword(this.keyword, this.arr,l_length_int,r_length_int);
+        if (this.result == "") {
             document.getElementById("query_results").innerHTML = "No result for the keyword :" + "  " + this.keyword;
             document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : 0" + "</h3>"
-        }
-        else {
-            for (var j = 0; j < this.result.length; j++){
+        } else {
+            for (var j = 0; j < this.result.length; j++) {
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
                 finalResult += "<div>" + this.result[j] + "</div>";
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
-                document.getElementById("query_results").innerHTML= finalResult;
+                document.getElementById("query_results").innerHTML = finalResult;
             }
         }
     }
 }
+
 
