@@ -79,7 +79,7 @@ function matchKeywordExact(keyword,content,l_length,r_length) {
                     result_temp_right = arr_content_right;
                 }
             }
-            result.push(result_temp_left + "," + result_temp_right);
+            result.push(i+1 + ":  " + result_temp_left + "," + result_temp_right);
             // result.push([...result_temp_left, ...result_temp_right]);
         }
     }
@@ -164,7 +164,7 @@ function matchKeyword(keyword, content, l_length,r_length) {
                     result_temp_right = arr_content_right;
                 }
             }
-            result.push(result_temp_left + "," + result_temp_right);
+            result.push(i+1 + ":  " + result_temp_left + "," + result_temp_right);
             // result.push([...result_temp_left, ...result_temp_right]);
         }
     }
