@@ -2,6 +2,12 @@ function re_remove_punctuation(str){
     var arr_str = str.replace(/[^\w\s\']|_/g, " ").split(" ");
     return arr_str;
 }
+
+function boldString_keyword(str, substr) {
+    var strRegExp = new RegExp(substr, 'g');
+    return str.replace(strRegExp, '<b>'+substr+'</b>');
+}
+
 function matchKeywordExact(keyword,content,l_length,r_length) {
     var result = [];
     var result_temp_left = [];
@@ -186,7 +192,7 @@ function keywordsearch() {
     var r_length_int = parseInt(r_length_str.value);
 
     if (status_value == true) {
-        alert(status_value);
+        // alert(status_value);
 
         this.result = matchKeywordExact(this.keyword, this.arr, l_length_int, r_length_int);
         if (this.result == "") {
@@ -195,14 +201,14 @@ function keywordsearch() {
         } else {
             for (var j = 0; j < this.result.length; j++) {
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
-                finalResult += "<div>" + this.result[j] + "</div>";
+                finalResult += "<div>" + boldString_keyword(this.result[j], this.keyword) + "</div>";
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
                 document.getElementById("query_results").innerHTML = finalResult;
             }
         }
     } else {
         // document.getElementById("query_results").innerHTML = "Functions in development...";
-        alert(status_value);
+        // alert(status_value);
 
         this.result = matchKeyword(this.keyword, this.arr,l_length_int,r_length_int);
         if (this.result == "") {
@@ -211,7 +217,7 @@ function keywordsearch() {
         } else {
             for (var j = 0; j < this.result.length; j++) {
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
-                finalResult += "<div>" + this.result[j] + "</div>";
+                finalResult += "<div>" + boldString_keyword(this.result[j], this.keyword) + "</div>";
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
                 document.getElementById("query_results").innerHTML = finalResult;
             }

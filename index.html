@@ -17,8 +17,8 @@
     <script type="text/javascript" src="js/file_info.js"></script>
     <script type="text/javascript" src="js/keyword_search.js"></script>
     <script type="text/javascript" src="js/check_box_status.js"></script>
-    <script type="text/javascript" src="js/left_context.js"></script>
-    <script type="text/javascript" src="js/right_context.js"></script>
+<!--    <script type="text/javascript" src="js/left_context.js"></script>-->
+<!--    <script type="text/javascript" src="js/right_context.js"></script>-->
 <!--    <script type="text/javascript" src="js/createRows.js"></script>-->
     <script type="text/css" src="css/text_area.css"></script>
 
@@ -52,7 +52,7 @@
     <br>
 
     <form name="keyword_searching">
-        <p>Keyword search</p>
+        <h3>Keyword search</h3>
         <input type="text" id="keyword">
         <input type="button" id="search" value="Search" onclick="keywordsearch()">
         <input type="checkbox" id="case_sensitive"> Case Sensitive
@@ -104,6 +104,7 @@
 <!--        <textarea id="novel_content" name="content" onkeydown="keyUp()" onscroll="getId('leftNum').scrollTop = this.scrollTop;" rows="50" cols="100"></textarea>-->
 <!--    </div>-->
 
+    <h3 id="plain_text">Plain text</h3>
     <textarea id="novel_content" name="content" rows="30" cols="100"></textarea>
     <br/>
     <br/>
