@@ -22,17 +22,19 @@ function matchKeywordExact(keyword,content,l_length,r_length) {
             if (i - 1 >= 0) {
 
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
 
-                if (index + 1 - l_length < 0) {
+                if (index - l_length < 0) {
                     var arr_content_left = arr_content.slice(0, index);
                     var arr_content_left_1 = re_remove_punctuation(content[i - 1]);
-                    var x = index + 1 - l_length;
+                    delete arr_content_left_1[0];
+                    var x = index - l_length;
 
-                    arr_content_left_1 = arr_content_left_1.slice(x);
+                    arr_content_left_1 = arr_content_left_1.slice(x-1);
                     result_temp_left = [...arr_content_left_1, ...arr_content_left];
                 } else {
-                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    var arr_content_left = arr_content.slice(index - l_length, index);
                     result_temp_left = arr_content_left;
                 }
                 // result.push(content[i] + "||||........||||" + result_temp_left);
@@ -40,12 +42,13 @@ function matchKeywordExact(keyword,content,l_length,r_length) {
             else {
 
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
-                if (index + 1 - l_length < 0) {
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
+                if (index - l_length < 0) {
                     var arr_content_left = arr_content.slice(0, index);
                     result_temp_left = arr_content_left;
                 } else {
-                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    var arr_content_left = arr_content.slice(index - l_length, index);
                     result_temp_left = arr_content_left;
                 }
                 // result.push(content[i] + "||||........||||" + result_temp_left)
@@ -55,37 +58,40 @@ function matchKeywordExact(keyword,content,l_length,r_length) {
             if (i + 1 > content.length) {
 
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
 
-                if (index + r_length > arr_content.length - 1){
+                if (index + r_length > arr_content.length){
                     var arr_content_right = arr_content.slice(index, arr_content.length);
                     // var arr_content_right = 'x'
                     result_temp_right = arr_content_right;
                 }
 
                 else {
-                    var arr_content_right = arr_content.slice(index, index + r_length);
+                    var arr_content_right = arr_content.slice(index, index + r_length + 2);
                     // var arr_content_right = 'x'
                     result_temp_right = arr_content_right;
                 }
             }
             else {
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
 
                 if (index + r_length > arr_content.length) {
                     var arr_content_right = arr_content.slice(index, arr_content.length);
                     var arr_content_right_1 = re_remove_punctuation(content[i + 1]);
-                    var y = index + 1 + r_length - arr_content.length;
+                    delete arr_content_right_1[0];
+                    var y = index + 2 + r_length - arr_content.length;
                     arr_content_right_1 = arr_content_right_1.slice(0, y);
                     result_temp_right = [...arr_content_right, ...arr_content_right_1];
                 }
                 else {
-                    var arr_content_right = arr_content.slice(index, index + r_length)
+                    var arr_content_right = arr_content.slice(index, index + r_length + 2)
                     result_temp_right = arr_content_right;
                 }
             }
-            result.push(i+1 + ":  " + result_temp_left + "," + result_temp_right);
+            result.push(i+1 + ":  " + result_temp_left.join(" ")  + " " + boldString_keyword(result_temp_right.join(" "), content[i].match(regex)[0]));
             // result.push([...result_temp_left, ...result_temp_right]);
         }
     }
@@ -107,17 +113,19 @@ function matchKeyword(keyword, content, l_length,r_length) {
             if (i - 1 >= 0) {
 
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
 
-                if (index + 1 - l_length < 0) {
+                if (index - l_length < 0) {
                     var arr_content_left = arr_content.slice(0, index);
                     var arr_content_left_1 = re_remove_punctuation(content[i - 1]);
-                    var x = index + 1 - l_length;
+                    delete arr_content_left_1[0];
+                    var x = index - l_length;
 
-                    arr_content_left_1 = arr_content_left_1.slice(x);
+                    arr_content_left_1 = arr_content_left_1.slice(x-1);
                     result_temp_left = [...arr_content_left_1, ...arr_content_left];
                 } else {
-                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    var arr_content_left = arr_content.slice(index - l_length, index);
                     result_temp_left = arr_content_left;
                 }
                 // result.push(content[i] + "||||........||||" + result_temp_left);
@@ -125,12 +133,13 @@ function matchKeyword(keyword, content, l_length,r_length) {
             else {
 
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
-                if (index + 1 - l_length < 0) {
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
+                if (index - l_length < 0) {
                     var arr_content_left = arr_content.slice(0, index);
                     result_temp_left = arr_content_left;
                 } else {
-                    var arr_content_left = arr_content.slice(index + 1 - l_length, index);
+                    var arr_content_left = arr_content.slice(index - l_length, index);
                     result_temp_left = arr_content_left;
                 }
                 // result.push(content[i] + "||||........||||" + result_temp_left)
@@ -140,37 +149,40 @@ function matchKeyword(keyword, content, l_length,r_length) {
             if (i + 1 > content.length) {
 
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
 
-                if (index + r_length > arr_content.length - 1){
+                if (index + r_length > arr_content.length){
                     var arr_content_right = arr_content.slice(index, arr_content.length);
                     // var arr_content_right = 'x'
                     result_temp_right = arr_content_right;
                 }
 
                 else {
-                    var arr_content_right = arr_content.slice(index, index + r_length);
+                    var arr_content_right = arr_content.slice(index, index + r_length + 2);
                     // var arr_content_right = 'x'
                     result_temp_right = arr_content_right;
                 }
             }
             else {
                 var arr_content = re_remove_punctuation(content[i]);
-                var index = arr_content.indexOf(keyword);
+                delete arr_content[0];
+                var index = arr_content.indexOf(content[i].match(regex)[0]);
 
                 if (index + r_length > arr_content.length) {
                     var arr_content_right = arr_content.slice(index, arr_content.length);
                     var arr_content_right_1 = re_remove_punctuation(content[i + 1]);
-                    var y = index + 1 + r_length - arr_content.length;
+                    delete arr_content_right_1[0];
+                    var y = index + 2 + r_length - arr_content.length;
                     arr_content_right_1 = arr_content_right_1.slice(0, y);
                     result_temp_right = [...arr_content_right, ...arr_content_right_1];
                 }
                 else {
-                    var arr_content_right = arr_content.slice(index, index + r_length)
+                    var arr_content_right = arr_content.slice(index, index + r_length + 2)
                     result_temp_right = arr_content_right;
                 }
             }
-            result.push(i+1 + ":  " + result_temp_left + "," + result_temp_right);
+            result.push(i+1 + ":  " + result_temp_left.join(" ")  + " " + boldString_keyword(result_temp_right.join(" "), content[i].match(regex)[0]));
             // result.push([...result_temp_left, ...result_temp_right]);
         }
     }
@@ -193,7 +205,6 @@ function keywordsearch() {
 
     if (status_value == true) {
         // alert(status_value);
-
         this.result = matchKeywordExact(this.keyword, this.arr, l_length_int, r_length_int);
         if (this.result == "") {
             document.getElementById("query_results").innerHTML = "No result for the keyword :" + "  " + this.keyword;
@@ -201,7 +212,7 @@ function keywordsearch() {
         } else {
             for (var j = 0; j < this.result.length; j++) {
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
-                finalResult += "<div>" + boldString_keyword(this.result[j], this.keyword) + "</div>";
+                finalResult += "<div>" + this.result[j] + "</div>";
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
                 document.getElementById("query_results").innerHTML = finalResult;
             }
@@ -217,7 +228,7 @@ function keywordsearch() {
         } else {
             for (var j = 0; j < this.result.length; j++) {
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
-                finalResult += "<div>" + boldString_keyword(this.result[j], this.keyword) + "</div>";
+                finalResult += "<div>" + this.result[j] + "</div>";
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
                 document.getElementById("query_results").innerHTML = finalResult;
             }
