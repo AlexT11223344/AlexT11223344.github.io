@@ -8,6 +8,7 @@ function boldString_keyword(str, substr) {
     return str.replace(strRegExp, '<b>'+substr+'</b>');
 }
 
+
 function matchKeywordExact(keyword,content,l_length,r_length) {
     var result = [];
     var result_temp_left = [];
@@ -91,8 +92,8 @@ function matchKeywordExact(keyword,content,l_length,r_length) {
                     result_temp_right = arr_content_right;
                 }
             }
-            result.push(i+1 + ":  " + result_temp_left.join(" ")  + " " + boldString_keyword(result_temp_right.join(" "), content[i].match(regex)[0]));
-            // result.push([...result_temp_left, ...result_temp_right]);
+            var result_str = i+1 + ":  " + result_temp_left.join(" ")  + " " + boldString_keyword(result_temp_right.join(" "), content[i].match(regex)[0]);
+            result.push(result_str);
         }
     }
     return result;
@@ -182,8 +183,9 @@ function matchKeyword(keyword, content, l_length,r_length) {
                     result_temp_right = arr_content_right;
                 }
             }
-            result.push(i+1 + ":  " + result_temp_left.join(" ")  + " " + boldString_keyword(result_temp_right.join(" "), content[i].match(regex)[0]));
-            // result.push([...result_temp_left, ...result_temp_right]);
+            var result_str = i+1 + ":  " + result_temp_left.join(" ")  + " " + boldString_keyword(result_temp_right.join(" "), content[i].match(regex)[0]);
+            result.push(result_str);
+
         }
     }
     return result;
@@ -192,7 +194,7 @@ function matchKeyword(keyword, content, l_length,r_length) {
 function keywordsearch() {
     var status_value = $("input[type='checkbox']").is(':checked')
     this.keyword = $("#keyword").val();
-    this.content = $("#novel_content").val();
+    this.content = $("#novel_content").text();
     this.arr = this.content.split("\n");
     this.result = [];
     var finalResult = "";
@@ -213,6 +215,7 @@ function keywordsearch() {
             for (var j = 0; j < this.result.length; j++) {
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
                 finalResult += "<div>" + this.result[j] + "</div>";
+
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
                 document.getElementById("query_results").innerHTML = finalResult;
             }
@@ -227,13 +230,54 @@ function keywordsearch() {
             document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : 0" + "</h3>"
         } else {
             for (var j = 0; j < this.result.length; j++) {
+                var _result_temp = this.result[j];
                 // document.write("result" + j + ":" + this.result[j] + "<br>");
-                finalResult += "<div>" + this.result[j] + "</div>";
+                finalResult += "<a id='result' href='javascript:void(0);' onclick='relocate(this)' style='color: #1a1e21'>" + _result_temp  + "</a><br>";
                 document.getElementById("query_results_title").innerHTML = "<h3>" + "Number of keyword search results : " + "  " + this.result.length + "</h3>";
                 document.getElementById("query_results").innerHTML = finalResult;
             }
         }
     }
 }
+
+
+function relocate(obj){
+    var keyword = obj.innerText;
+    var content = $("#novel_content").text();
+    var arr = content.split("\n");
+    for(var i = 0; i < arr.length; i++){
+        if (arr[i].split(" ")[0] == keyword.split(" ")[0]){
+            // var _index = content.indexOf(arr[i].split(" ")[0]);
+            var _index = i + 1;
+            arr[i] = '<b>' + arr[i] + '</b>';
+            document.getElementById("novel_content").innerHTML = arr.join("\n");
+            scrollTo(_index)
+            alert(arr[i]+ "***" + keyword + '***' + height);
+            break;
+        }
+        else {
+            continue;
+        }
+    }
+    // var row_content = obj.innerText;
+    // var keyword = row_content.split(" ")[0];
+    // var content = document.getElementById("novel_content");
+    // var initText = content.innerHTML;
+    // var index = initText.indexOf(keyword);
+    // var arr = initText.split(" ");
+    // arr.splice(index, row_content.length, `<span class="light-high">${row_content}</span>`)
+    // content.innerHTML = arr.join(" ");
+    // alert(content)
+}
+
+function scrollTo(index){
+    var content_position = document.getElementById("novel_content");
+    var lineHeight = 24;
+    const row = (index).toFixed(0);
+    content_position.scrollTop = (row - 2) * lineHeight;
+}
+
+
+
 
 
