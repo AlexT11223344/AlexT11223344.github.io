@@ -23,7 +23,7 @@ function file_info() {
     // this.data_title = $("#select_novel_list option:selected").text();
     var myselect = document.getElementById("select_novel_list");
     var data_value = myselect.value;
-    document.getElementById("p_novel_file_name").innerHTML = "Selected file name: " + data_value + ", type of file is:" + typeof data_value;
+    // document.getElementById("p_novel_file_name").innerHTML = "Selected file name: " + data_value + ", type of file is:" + typeof data_value;
 
     // 2. Read the value(URL) and get the txt content
     if (data_value == "0") {
@@ -45,6 +45,8 @@ function file_info() {
     this.arr_allText= allText.split("\n");
     document.getElementById("total_text_lines").innerHTML = "Total text lines : " + "  " + this.arr_allText.length;
     document.getElementById("total_word_count").innerHTML = "Total word count : " + "  " + allText.length;
+    $( '#query_results' ).empty();
+    $( '#query_results_title' ).empty();
 
 }
 
